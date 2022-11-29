@@ -138,47 +138,6 @@ function register(user, res) {
 }
 //end register function
 //end registration
-//start wanttogo list
-// $('#wanttogo').click(function(){
-// var MongoClient = require('mongodb').MongoClient;
-// MongoClient.connect("mongodb://127.0.0.1:27017", function(err,client){
-// if(err)throw err;
-// var db= client.db('MYDB');
-// var sessionuser =db.collection ('traveller').findOne({username: req.session.username})
-
-// })
-// })
-// app.get('/bali',function(req,res){
-//     console.log("woo")
-//     document.getElementById('wanttogo').click(function(){
-
-//     var MongoClient = require('mongodb').MongoClient;
-//     MongoClient.connect("mongodb://127.0.0.1:27017", function(err,client){
-//     if(err)throw err;
-//     var db= client.db('MYDB');
-//     var sessionuser =db.collection ('traveller').findOne({username: req.session.username});
-//     var flag=false;
-//     var cart=sessionuser.wanttogolist;
-//     for (let i = 0; i < cart.length; i++) {
-//     if(cart[i]=="bali")
-//     { flag=true;
-//     }}
-//     if (flag)
-//     alert("already here");
-//     else  {
-//     alert("Product is added successfully!");
-//     cart.push("bali");
-//     var newcart = { $set: { cart: cart } };
-//     db.collection ('traveller').updateOne(
-//       updateOne(sessionuser.username, newcart, function (err, res) {
-//         if (err) throw err;
-//         console.log("1 document updated");
-//     }));
-
-// }
-// });
-// });
-// });
 //start all pages post
 app.post("/addbali", function (req, res) {
   addplaces(req, "bali");
@@ -251,14 +210,21 @@ function auth(req, res, next) {
   }
 }
 //auth end
-//start search habll
-// app.post("/search", function (req, res) {
-//   var item = req.body.Search;
-  
-// if(item.toLowerCase()=='bali'||item.toLowerCase()=='annapurna'||item.toLowerCase()=='paris'||item.toLowerCase()=='rome'||
-// item.toLowerCase()=='inca'||item.toLowerCase()=='santorini'||item.toLowerCase()=='cities'||item.toLowerCase()=='hiking'||
-// item.toLowerCase()=='islands'||item.toLowerCase()=='wanttogo')
-// res.render(item);
-// else {alert("there is no page called "+item );
-// res.redirect("/home");
-// }});
+//start show cart
+app.post("/cart", auth,function (req, res) {
+showCart(req,res);
+})
+function showCart(req,res){
+  var MongoClient = require("mongodb").MongoClient;
+  MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
+    if (err) throw err;
+    var db = client.db("MYDB");
+
+    var collection = db.collection("traveller");
+    collection
+      .find({ username: req.session.username })
+      .toArray(function (err, results) {
+      res.render("wanttogo",{places:results[0].wanttogolist})
+     
+      })})
+}

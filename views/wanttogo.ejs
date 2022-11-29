@@ -4,7 +4,7 @@
     <style>
         body {
             background-image: url("background3.jpg");
-            background-repeat: no-repeat;
+            background-repeat: repeat;
             background-size: 100%;
         }
 
@@ -13,6 +13,37 @@
             text-align: center;
             -webkit-text-stroke: 1px blue;
         }
+        .flex-container{
+            display: flex;
+            flex-direction: column;
+            justify-content:flex-start;
+            align-items: stretch;
+            padding-top: 100px;
+        }
+        .flex-container a p{
+            text-decoration: none;
+            color:white;
+            font-size: larger;
+            padding-left: 150px;
+            
+
+        }
+        .flex-container a{
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: row;
+            padding-left: 100px;
+            
+            align-items: center;
+            background-color:grey;
+           
+           
+        }
+       
+        
+
+
+
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,5 +69,18 @@
             </form>
         </div>
     </nav>
+    <div class="flex-container">
+        
+        <% for(var i=0; i < places.length; i++) { %>
+            <a href="/<%= places[i]%>">
+                <img id="image" src="/<%= places[i]%>.png" width="200" height="200">
+               
+               <p>
+                    <%= places[i]%>
+               </p>
+               
+            </a>
+            <% } %>
+    </div>
 </body>
 </html>
