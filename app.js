@@ -35,6 +35,7 @@ if (process.env.PORT) {
     console.log("server started on port 3000");
   });
 }
+
 function login(user, res) {
   var MongoClient = require("mongodb").MongoClient;
   MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
@@ -211,20 +212,69 @@ function auth(req, res, next) {
 }
 //auth end
 //start show cart
-app.post("/cart", auth,function (req, res) {
-showCart(req,res);
-})
-function showCart(req,res){
-  var MongoClient = require("mongodb").MongoClient;
-  MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
-    if (err) throw err;
-    var db = client.db("MYDB");
+app.post("/cart", auth, async function (req, res) {
+var x=await showCart(req).catch(console.error)
+console.log(x)
+res.render('wanttogo', { places: x});
 
-    var collection = db.collection("traveller");
-    collection
-      .find({ username: req.session.username })
-      .toArray(function (err, results) {
-      res.render("wanttogo",{places:results[0].wanttogolist})
+})
+
+
+var { MongoClient } = require('mongodb');
+var uri="mongodb://127.0.0.1:27017"
+var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+async function showCart(req) {
+  await client.connect();
+  var username = { username: req.session.username };
+  var user = await client.db('MYDB').collection("traveller").findOne(username);
+  var cart = user.wanttogolist;
+  
+ return cart;
+  client.close();
+}
+// async function showCart(req,res){
+//   var MongoClient = require("mongodb").MongoClient;
+//   await MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
+//     if (err) throw err;
+//     var db = client.db("MYDB");
+
+//     var collection = db.collection("traveller");
+//     collection
+//       .find({ username: req.session.username })
+//       .toArray(function (err, results) {
+//       res.render("wanttogo",{places:results[0].wanttogolist})
      
-      })})
+//       })
+ 
+//     })
+// }
+
+   
+  
+
+
+//end show cart
+//start search 
+app.post("/search",auth,function(req,res){
+var result=searchplace(req,res);
+res.render("searchresults",{results:result});
+
+})
+function searchplace(req,res){
+var input=req.body.Search.toLowerCase();
+var result=[];
+if("bali".includes(input))
+result.push("bali");
+if("paris".includes(input))
+result.push("paris")
+if("rome".includes(input))
+result.push("rome")
+if("annapurna".includes(input))
+result.push("annapurna")
+if("santorini".includes(input))
+result.push("santorini")
+if("inca".includes(input))
+result.push("inca")
+
+return result;
 }
