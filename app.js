@@ -40,8 +40,8 @@ function login(user, res) {
   var MongoClient = require("mongodb").MongoClient;
   MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
     if (err) throw err;
-    var db = client.db("MYDB");
-    db.collection("traveller")
+    var db = client.db("myDB");
+    db.collection("myCollection")
       .find({ username: user.username, password: user.password })
       .toArray(function (err, results) {
         if (results.length == 0) {
@@ -115,8 +115,8 @@ function register(user, res) {
   var MongoClient = require("mongodb").MongoClient;
   MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
     if (err) throw err;
-    var db = client.db("MYDB");
-    db.collection("traveller")
+    var db = client.db("myDB");
+    db.collection("myCollection")
       .find({ username: user.username })
       .toArray(function (err, results) {
         if (results.length != 0) {
@@ -126,7 +126,7 @@ function register(user, res) {
           alert("USERNAME AND PASSWORD CANNOT BE EMPTY!");
           res.redirect("registration");
         } else {
-          db.collection("traveller").insertOne({
+          db.collection("myCollection").insertOne({
             username: user.username,
             password: user.password,
             wanttogolist: [],
@@ -171,9 +171,9 @@ function addplaces(req, place) {
   var MongoClient = require("mongodb").MongoClient;
   MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
     if (err) throw err;
-    var db = client.db("MYDB");
+    var db = client.db("myDB");
 
-    var collection = db.collection("traveller");
+    var collection = db.collection("myCollection");
     collection
       .find({ username: req.session.username })
       .toArray(function (err, results) {
@@ -217,9 +217,9 @@ async function showCart(req,res){
   var MongoClient = require("mongodb").MongoClient;
   await MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
     if (err) throw err;
-    var db = client.db("MYDB");
+    var db = client.db("myDB");
 
-    var collection = db.collection("traveller");
+    var collection = db.collection("myCollection");
     collection
       .find({ username: req.session.username })
       .toArray(function (err, results) {
