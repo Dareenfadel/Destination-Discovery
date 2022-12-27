@@ -96,7 +96,7 @@ app.get("/search", auth, function (req, res) {
   res.render("searchresults");
 });
 app.get("/wanttogo", auth, function (req, res) {
-  res.render("wanttogo");
+ showCart(req,res)
 });
 app.get("/rome", auth, function (req, res) {
   res.render("rome");
@@ -212,42 +212,23 @@ function auth(req, res, next) {
 }
 //auth end
 //start show cart
-app.post("/cart", auth, async function (req, res) {
-var x=await showCart(req).catch(console.error)
-console.log(x)
-res.render('wanttogo', { places: x});
 
-})
+async function showCart(req,res){
+  var MongoClient = require("mongodb").MongoClient;
+  await MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
+    if (err) throw err;
+    var db = client.db("MYDB");
 
-
-var { MongoClient } = require('mongodb');
-var uri="mongodb://127.0.0.1:27017"
-var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-async function showCart(req) {
-  await client.connect();
-  var username = { username: req.session.username };
-  var user = await client.db('MYDB').collection("traveller").findOne(username);
-  var cart = user.wanttogolist;
-  
- return cart;
-  client.close();
-}
-// async function showCart(req,res){
-//   var MongoClient = require("mongodb").MongoClient;
-//   await MongoClient.connect("mongodb://127.0.0.1:27017", function (err, client) {
-//     if (err) throw err;
-//     var db = client.db("MYDB");
-
-//     var collection = db.collection("traveller");
-//     collection
-//       .find({ username: req.session.username })
-//       .toArray(function (err, results) {
-//       res.render("wanttogo",{places:results[0].wanttogolist})
+    var collection = db.collection("traveller");
+    collection
+      .find({ username: req.session.username })
+      .toArray(function (err, results) {
+      res.render("wanttogo",{places:results[0].wanttogolist})
      
-//       })
+      })
  
-//     })
-// }
+    })
+}
 
    
   
