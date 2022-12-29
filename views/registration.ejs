@@ -4,7 +4,7 @@
 <head>
     <style>
         body {
-            background-image: url("background2.jpg");
+            background-image: url("register.jpg");
             background-repeat: no-repeat;
             background-size: 100%;
             }
@@ -18,7 +18,41 @@
             left:600px;
             top:50px;
             color: white;
-            -webkit-text-stroke: 0.5px black;
+           /* -webkit-text-stroke: 0.5px black;*/
+        }
+        .cont {
+            position:relative;
+            left:600px;
+            top:50px;
+            color: white;
+            position: absolute;
+            top: 200px;
+            left: 100px;
+            background-color: rgba(0,0,0,0.4);
+            
+            padding: 30px;
+        }
+        .container{
+            position: absolute;
+            top: 200px;
+            font-size: 40px;
+            color: white;
+            font-weight: 500;
+            left: 90px;
+            top: 140px;
+            
+            text-shadow: 2px 2px #aaa398;
+        }
+        .discover{
+            font-size: 50px;
+            color: white;
+            font-weight: 400;
+            position: absolute;
+            top: 260px;
+            left: 500px;
+            text-shadow: 2px 2px #aaa398;
+            
+
         }
     </style>
     <meta charset="UTF-8">
@@ -31,15 +65,16 @@
 
 <body>
     <div class="container">
-        <h1>Registration</h1>
+        <p>REGISTERATION</p>
     </div>
+    <div class="discover"> DISCOVER THE WORLD NOW</div>
     <div class="cont">
         <form method='post' action='/register'>
             Username: <br>
-            <input type="text" id="user" name="username"> <br>
+            <input type="text" id="user" name="username"  style="width: 250px;"> <br>
             Password: <br>
-            <input type="password" id="password" name="password"> <br> <br>
-            <input type="submit" id="simple_click" class="btn btn-secondary" value="Register"> <br>
+            <input type="password" id="password" name="password" style="width: 250px; "> <br> <br>
+            <input type="submit"    style="margin-left:90px;" id="simple_click" class="btn btn-secondary"  value="Register"> <br>
         </form>
     </div>
 </body>

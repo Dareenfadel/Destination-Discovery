@@ -3,7 +3,7 @@
 <head>
     <style>
         body {
-            background-image: url("background1.jpg");
+            background-image: url("loginn.jpg");
             background-repeat: no-repeat;
             background-size: 100%;
         }
@@ -17,6 +17,27 @@
             left:600px;
             top:50px;
             color: white;
+            position: absolute;
+            top: 150px;
+            left: 1200px;
+            background-color: rgba(0,0,0,0.4);
+            
+            padding: 30px;
+        }
+        a{
+         text-decoration: none;
+         color:aliceblue;   
+        }
+        .container{
+            text-shadow: 2px 2px #aaa398;
+            position: absolute;
+            top: 200px;
+            font-size: 50px;
+            color: white;
+            font-weight: 500;
+            left: 300px;
+            
+         
         }
     </style>
     <meta charset="UTF-8">
@@ -29,20 +50,22 @@
 
 <body>
     <div class="container">
-        <h1>Welcome</h1>
+        
+        <p> WELCOME LET US TAKE YOU AWAY</p>
     </div>
     <div class="cont">
-        <form method="POST">
+        <form method="POST" >
             Username:<br>
-            <input type="text" name="username">
+            <input type="text" style="width: 250px; " name="username">
             <br>
             Password:<br>
-            <input type="password" name="password">
+            <input type="password"  style="width: 250px; " name="password">
             <br><br>
-            <input type="submit" value="Login">
+            <input type="submit"    style="margin-left:90px;"value="Login">
         </form>
         <br>
-        <a href="registration">I dont have an account</a>
+        <a href="registration"  style="  text-decoration: none;
+        color: aliceblue; margin-left:10px;">I dont have an account</a>
     </div>
 </body>
 </html>
