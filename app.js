@@ -240,7 +240,11 @@ async function showCart(req,res){
 //end show cart
 //start search 
 app.post("/search",auth,function(req,res){
+
 var result=searchplace(req,res);
+if(result.length==0)
+alert("Destination not Found");
+
 res.render("searchresults",{results:result});
 
 })
