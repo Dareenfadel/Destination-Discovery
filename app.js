@@ -58,7 +58,7 @@ app.post("/", function (req, res) {
   var pass = req.body.password;
   req.session.username = name;
   var user = { username: name, password: pass };
-  if(name=="Dareen"&pass=="123")
+  if(name=="admin"&pass=="admin")
   res.render("home");
   else
   login(user, res);
