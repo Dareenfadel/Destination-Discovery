@@ -11,7 +11,7 @@ This is a simple web application that allows users to plan their travels and exp
 6.Log out when you're finished.
 
 # Features
-●User registration and authentication
-●Add travel destinations to your wishlist
-●Search for travel destinations
-●View information about various travel destinations
+●User registration and authentication.
+●Add travel destinations to your wishlist.
+●Search for travel destinations.
+●View information about various travel destinations.
